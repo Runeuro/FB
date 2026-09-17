@@ -1,12 +1,29 @@
 <!doctype html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Заказы</title><style>
-:root{--milk:#f5f0e8;--card:#fffdf9;--brown:#5a3828;--red:#e52d35;--line:rgba(90,56,40,.12);--text:#30251f;--muted:#927f73;--shadow:0 12px 40px rgba(77,52,39,.08)}*{box-sizing:border-box}body{margin:0;padding:28px;background:var(--milk);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}.app{max-width:1700px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:16px}.brand{display:flex;gap:13px;align-items:center}.logo{width:42px;height:42px;border-radius:14px;background:var(--brown);color:#fff;display:grid;place-items:center;font-weight:800;font-size:19px}h1{margin:0;color:var(--brown);font-size:30px;letter-spacing:-.04em}.sub{font-size:13px;color:var(--muted);margin-top:3px}.actions{display:flex;gap:12px;align-items:center}.online{font-size:12px;color:#51805a;background:#eaf5eb;padding:8px 12px;border-radius:999px}.btn{border:0;border-radius:15px;padding:12px 18px;background:var(--brown);color:white;font-weight:700;box-shadow:0 8px 20px rgba(90,56,40,.16)}.btn.red{background:var(--red)}.card{background:var(--card);border:1px solid rgba(90,56,40,.09);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}.scroll{overflow:auto;-webkit-overflow-scrolling:touch}table{width:100%;min-width:1120px;border-collapse:separate;border-spacing:0}th{background:#f0e8df;color:#70594b;font-size:11px;text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:7px;border-bottom:1px solid rgba(90,56,40,.065);vertical-align:middle}tr.done{background:#ecebea;color:#8d8b89}input,select{font:inherit}.cell,.money,.date,.time{width:100%;border:1px solid transparent;background:transparent;color:inherit;border-radius:10px;padding:9px 8px;outline:0}.cell:hover,.money:hover,.date:hover,.time:hover{background:#f8f2eb}.cell:focus,.money:focus,.date:focus,.time:focus{background:#fff;border-color:rgba(229,45,53,.34);box-shadow:0 0 0 3px rgba(229,45,53,.07)}.date{width:140px}.time{width:100px}.money{text-align:right;min-width:95px}.status{border:0;border-radius:999px;padding:8px 10px;font-weight:700;font-size:12px;min-width:125px;outline:0}.processing{background:#f8dce8;color:#9b3e69}.working{background:#fff0bd;color:#8a6810}.ready{background:#d9f1dc;color:#3e7750}.cancelled{background:#f8d4d4;color:#a62e32}.delivery{background:#d9e8fa;color:#35689f}.del{width:34px;height:34px;border:0;border-radius:11px;background:transparent;color:#a48f83;font-size:24px;line-height:1}.del:hover{background:#fde7e7;color:var(--red)}.empty,.loading{padding:60px 20px;text-align:center;color:var(--muted)}.foot{padding:14px 4px;text-align:right;color:#a28e82;font-size:11px}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--brown);color:white;padding:11px 16px;border-radius:13px;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.mobile{display:none}
+:root{--milk:#f5f0e8;--card:#fffdf9;--brown:#5a3828;--red:#e52d35;--line:rgba(90,56,40,.12);--text:#30251f;--muted:#927f73;--shadow:0 12px 40px rgba(77,52,39,.08)}*{box-sizing:border-box}body{margin:0;padding:28px;background:var(--milk);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}.app{max-width:1700px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;gap:16px;flex-wrap:wrap}.brand{display:flex;gap:13px;align-items:center}.logo{width:42px;height:42px;border-radius:14px;background:var(--brown);color:#fff;display:grid;place-items:center;font-weight:800;font-size:19px}h1{margin:0;color:var(--brown);font-size:30px;letter-spacing:-.04em}.sub{font-size:13px;color:var(--muted);margin-top:3px}.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.online{font-size:12px;color:#51805a;background:#eaf5eb;padding:8px 12px;border-radius:999px}.btn{border:0;border-radius:15px;padding:12px 18px;background:var(--brown);color:white;font-weight:700;box-shadow:0 8px 20px rgba(90,56,40,.16)}.btn.red{background:var(--red)}.btn.small{padding:8px 12px;font-size:12px;border-radius:11px;box-shadow:none;background:#f0e8df;color:var(--brown)}
+/* фильтр */
+.filter{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid rgba(90,56,40,.09);border-radius:15px;padding:6px 10px;box-shadow:0 4px 14px rgba(77,52,39,.05);flex-wrap:wrap}
+.filter select,.filter input{font:inherit;font-size:13px;border:1px solid transparent;background:#f8f2eb;border-radius:10px;padding:8px 9px;color:inherit;outline:0}
+.filter select:focus,.filter input:focus{background:#fff;border-color:rgba(229,45,53,.34);box-shadow:0 0 0 3px rgba(229,45,53,.07)}
+.filter .range{display:flex;gap:6px;align-items:center}
+.filter .range input{width:135px}
+.filter .range.hidden{display:none}
+.summary{display:flex;align-items:center;gap:12px;background:#fff6e8;border:1px solid rgba(90,56,40,.1);border-radius:15px;padding:8px 14px}
+.summary .total{font-weight:800;font-size:16px;color:var(--brown);white-space:nowrap}
+.summary .split{font-size:11px;color:#8a6b52;line-height:1.35;white-space:nowrap}
+.summary .split b{color:var(--brown)}
+.card{background:var(--card);border:1px solid rgba(90,56,40,.09);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}.scroll{overflow:auto;-webkit-overflow-scrolling:touch}table{width:100%;min-width:1200px;border-collapse:separate;border-spacing:0}th{background:#f0e8df;color:#70594b;font-size:11px;text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:13px 10px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:7px;border-bottom:1px solid rgba(90,56,40,.065);vertical-align:middle}tr.done{background:#ecebea;color:#8d8b89}input,select{font:inherit}.cell,.money,.date,.time{width:100%;border:1px solid transparent;background:transparent;color:inherit;border-radius:10px;padding:9px 8px;outline:0}.cell:hover,.money:hover,.date:hover,.time:hover{background:#f8f2eb}.cell:focus,.money:focus,.date:focus,.time:focus{background:#fff;border-color:rgba(229,45,53,.34);box-shadow:0 0 0 3px rgba(229,45,53,.07)}.date{width:140px}.time{width:100px}.money{text-align:right;min-width:95px}.total-cell{text-align:right;font-weight:800;color:var(--brown);padding-right:14px;white-space:nowrap;min-width:110px}tr.done .total-cell{color:#8d8b89}.status{border:0;border-radius:999px;padding:8px 10px;font-weight:700;font-size:12px;min-width:125px;outline:0}.processing{background:#f8dce8;color:#9b3e69}.working{background:#fff0bd;color:#8a6810}.ready{background:#d9f1dc;color:#3e7750}.cancelled{background:#f8d4d4;color:#a62e32}.delivery{background:#d9e8fa;color:#35689f}.del{width:34px;height:34px;border:0;border-radius:11px;background:transparent;color:#a48f83;font-size:24px;line-height:1}.del:hover{background:#fde7e7;color:var(--red)}.empty,.loading{padding:60px 20px;text-align:center;color:var(--muted)}.foot{padding:14px 4px;text-align:right;color:#a28e82;font-size:11px}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--brown);color:white;padding:11px 16px;border-radius:13px;transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.mobile{display:none}
 @media(max-width:800px){
   body{padding:14px}
   h1{font-size:25px}
   .online{display:none}
   .mobile{display:block;padding:10px 14px;font-size:11px;color:var(--muted);border-bottom:1px solid var(--line)}
   .btn{padding:11px 14px}
-  /* карточки вместо таблицы */
+  .filter{padding:6px 8px;gap:6px;width:100%}
+  .filter select{flex:1}
+  .filter .range{width:100%}
+  .filter .range input{flex:1;width:auto}
+  .summary{padding:8px 10px;width:100%;justify-content:space-between}
+  .summary .split{font-size:10px}
   .scroll{overflow:visible}
   table{min-width:0;display:block}
   thead{display:none}
@@ -27,12 +44,34 @@
   .money{text-align:left}
   .status{width:100%}
   .del{width:100%;height:40px;background:#fde7e7;color:var(--red);font-size:20px}
+  .total-cell{text-align:left;padding:4px 0}
 }
-</style></head><body><div class="app"><div class="top"><div class="brand"><div><h1>Заказы</h1></div></div><div class="actions"><span id="conn" class="online">● Онлайн</span><button class="btn red" onclick="addOrder()">＋ Заказ</button></div></div><div class="card"><div class="mobile">На телефоне каждый заказ показан карточкой.</div><div id="root" class="scroll"><div class="loading">Загрузка заказов…</div></div></div><div class="foot">Готовые заказы автоматически перемещаются вниз.</div></div><div id="toast" class="toast"></div>
+</style></head><body><div class="app"><div class="top"><div class="brand"><div><h1>Заказы</h1></div></div><div class="actions">
+  <div class="filter">
+    <select id="periodType" onchange="onPeriodType()">
+      <option value="month">Месяц</option>
+      <option value="range">Диапазон дат</option>
+    </select>
+    <input type="month" id="monthPick" onchange="applyFilter()">
+    <div class="range hidden" id="rangeBox">
+      <input type="date" id="dateFrom" onchange="applyFilter()">
+      <span style="color:var(--muted);font-size:12px">—</span>
+      <input type="date" id="dateTo" onchange="applyFilter()">
+    </div>
+    <button class="btn small" onclick="resetFilter()">Сброс</button>
+  </div>
+  <div class="summary">
+    <div class="total" id="sumTotal">0 ₽</div>
+    <div class="split" id="sumSplit">оплата: <b>0 ₽</b><br>доставка: <b>0 ₽</b></div>
+  </div>
+  <span id="conn" class="online">● Онлайн</span>
+  <button class="btn red" onclick="addOrder()">＋ Заказ</button>
+</div></div><div class="card"><div class="mobile">На телефоне каждый заказ показан карточкой.</div><div id="root" class="scroll"><div class="loading">Загрузка заказов…</div></div></div><div class="foot">Готовые заказы автоматически перемещаются вниз.</div></div><div id="toast" class="toast"></div>
 <script>
 const URL='https://xeueknrdngciphkwddfu.supabase.co',KEY='sb_publishable_r-nKoe46FVG9AKyMDCQFJg_hTL6uws4',TABLE='simple_orders',H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json',Prefer:'return=representation'};let rows=[],busy=false,timer;
 const statuses={'Обработка':'processing','В работе':'working','Готов':'ready','Отменен':'cancelled','Доставка':'delivery'},icons={'Обработка':'●','В работе':'◆','Готов':'✓','Отменен':'×','Доставка':'➜'};
 const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const fmt=n=>new Intl.NumberFormat('ru-RU').format(Math.round(Number(n)||0))+' ₽';
 async function api(path,opt={}){
   let r=await fetch(URL+'/rest/v1/'+path,{...opt,headers:{...H,...(opt.headers||{})}});
   if(!r.ok)throw Error(await r.text());
@@ -46,8 +85,64 @@ function now(){let d=new Date();return String(d.getHours()).padStart(2,'0')+':'+
 function sort(){rows.sort((a,b)=>((a.status==='Готов')-(b.status==='Готов'))||((a.sort_order||0)-(b.sort_order||0)))}
 function conn(ok){let e=document.getElementById('conn');e.textContent=ok?'● Онлайн':'● Нет связи';e.style.background=ok?'#eaf5eb':'#fde7e7';e.style.color=ok?'#51805a':'#a62e32'}
 function toast(x){let e=document.getElementById('toast');e.textContent=x;e.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>e.classList.remove('show'),2200)}
-async function load(){if(busy)return;busy=true;try{rows=await api(TABLE+'?select=*&order=sort_order.asc,created_at.asc')||[];sort();render();conn(true)}catch(e){console.error(e);conn(false);document.getElementById('root').innerHTML='<div class="empty">Не удалось загрузить заказы.<br>Проверьте интернет-соединение.</div>'}finally{busy=false}}
-function render(){sort();let root=document.getElementById('root');if(!rows.length){root.innerHTML='<div class="empty">Пока нет заказов.<br><br>Нажмите «＋ Заказ», чтобы добавить первый.</div>';return}root.innerHTML='<table><colgroup><col style="width:150px"><col style="width:110px"><col style="min-width:220px"><col style="min-width:150px"><col style="min-width:110px"><col style="width:125px"><col style="width:125px"><col style="width:110px"><col style="min-width:260px"><col style="width:150px"><col style="width:55px"></colgroup><thead><tr><th>Дата</th><th>Время</th><th>Товар</th><th>Заказчик</th><th>Откуда</th><th>Предоплата</th><th>Оплата</th><th>Доставка</th><th>Как узнал / комментарий</th><th>Статус</th><th></th></tr></thead><tbody>'+rows.map(row).join('')+'</tbody></table>'}
+function rowSum(r){return (Number(r.prepayment)||0)+(Number(r.payment)||0)+(Number(r.delivery)||0)}
+
+/* ---------- фильтр ---------- */
+function onPeriodType(){
+  const t=document.getElementById('periodType').value;
+  document.getElementById('monthPick').style.display = t==='month'?'':'none';
+  document.getElementById('rangeBox').classList.toggle('hidden', t!=='range');
+  if(t==='month' && !document.getElementById('monthPick').value){
+    const d=new Date();
+    document.getElementById('monthPick').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+  }
+  applyFilter();
+}
+function resetFilter(){
+  document.getElementById('monthPick').value='';
+  document.getElementById('dateFrom').value='';
+  document.getElementById('dateTo').value='';
+  document.getElementById('periodType').value='month';
+  onPeriodType();
+}
+function getRange(){
+  const t=document.getElementById('periodType').value;
+  if(t==='month'){
+    const m=document.getElementById('monthPick').value;
+    if(!m)return null;
+    const [y,mo]=m.split('-').map(Number);
+    const from=new Date(y,mo-1,1);
+    const to=new Date(y,mo,0);
+    return {from:from.toISOString().slice(0,10),to:to.toISOString().slice(0,10)};
+  }else{
+    const f=document.getElementById('dateFrom').value;
+    const to=document.getElementById('dateTo').value;
+    if(!f&&!to)return null;
+    return {from:f||'0000-01-01',to:to||'9999-12-31'};
+  }
+}
+function applyFilter(){
+  renderSummary();
+}
+function renderSummary(){
+  const range=getRange();
+  let total=0, pay=0, del=0;
+  rows.forEach(r=>{
+    if(range){
+      const d=r.order_date||'';
+      if(d<range.from||d>range.to)return;
+    }
+    pay += (Number(r.prepayment)||0)+(Number(r.payment)||0);
+    del += (Number(r.delivery)||0);
+    total += rowSum(r);
+  });
+  document.getElementById('sumTotal').textContent=fmt(total);
+  document.getElementById('sumSplit').innerHTML='оплата: <b>'+fmt(pay)+'</b><br>доставка: <b>'+fmt(del)+'</b>';
+}
+
+/* ---------- загрузка ---------- */
+async function load(){if(busy)return;busy=true;try{rows=await api(TABLE+'?select=*&order=sort_order.asc,created_at.asc')||[];sort();render();renderSummary();conn(true)}catch(e){console.error(e);conn(false);document.getElementById('root').innerHTML='<div class="empty">Не удалось загрузить заказы.<br>Проверьте интернет-соединение.</div>'}finally{busy=false}}
+function render(){sort();let root=document.getElementById('root');if(!rows.length){root.innerHTML='<div class="empty">Пока нет заказов.<br><br>Нажмите «＋ Заказ», чтобы добавить первый.</div>';return}root.innerHTML='<table><colgroup><col style="width:150px"><col style="width:110px"><col style="min-width:220px"><col style="min-width:150px"><col style="min-width:110px"><col style="width:125px"><col style="width:125px"><col style="width:110px"><col style="min-width:260px"><col style="width:150px"><col style="width:110px"><col style="width:55px"></colgroup><thead><tr><th>Дата</th><th>Время</th><th>Товар</th><th>Заказчик</th><th>Откуда</th><th>Предоплата</th><th>Оплата</th><th>Доставка</th><th>Как узнал / комментарий</th><th>Статус</th><th>Сумма</th><th></th></tr></thead><tbody>'+rows.map(row).join('')+'</tbody></table>'}
 function row(r){
   const done=r.status==='Готов', cl=statuses[r.status]||'processing';
   return `<tr class="${done?'done':''}" data-id="${r.id}">
@@ -61,13 +156,22 @@ function row(r){
     <td data-label="Доставка"><input class="money" type="number" min="0" step="1" value="${r.delivery||0}" onchange="num(${r.id},'delivery',this.value)"></td>
     <td data-label="Как узнал / комментарий"><input class="cell" value="${esc(r.comment)}" placeholder="Комментарий…" onchange="edit(${r.id},'comment',this.value)"></td>
     <td data-label="Статус"><select class="status ${cl}" onchange="changeStatus(${r.id},this.value)">${Object.keys(statuses).map(s=>`<option ${s===r.status?'selected':''} value="${esc(s)}">${icons[s]} ${esc(s)}</option>`).join('')}</select></td>
+    <td data-label="Сумма" class="total-cell" id="sum-${r.id}">${fmt(rowSum(r))}</td>
     <td data-label=""><button class="del" title="Удалить" onclick="del(${r.id})">×</button></td>
   </tr>`;
 }
 async function patch(id,p){try{await api(TABLE+'?id=eq.'+encodeURIComponent(id),{method:'PATCH',body:JSON.stringify(p)});conn(true)}catch(e){console.error(e);conn(false);toast('Не удалось сохранить')}}
-function edit(id,k,v){let r=rows.find(x=>x.id==id);if(!r)return;r[k]=v;patch(id,{[k]:v})}
-function num(id,k,v){let n=Number(v)||0;let r=rows.find(x=>x.id==id);if(r)r[k]=n;patch(id,{[k]:n})}
-function changeStatus(id,v){let r=rows.find(x=>x.id==id);if(!r)return;r.status=v;if(v==='Готов')r.sort_order=Math.max(0,...rows.map(x=>Number(x.sort_order)||0))+1;patch(id,{status:v,sort_order:r.sort_order});render()}
+function edit(id,k,v){let r=rows.find(x=>x.id==id);if(!r)return;r[k]=v;patch(id,{[k]:v});renderSummary()}
+function num(id,k,v){
+  let n=Number(v)||0;
+  let r=rows.find(x=>x.id==id);
+  if(r)r[k]=n;
+  patch(id,{[k]:n});
+  const cell=document.getElementById('sum-'+id);
+  if(cell&&r)cell.textContent=fmt(rowSum(r));
+  renderSummary();
+}
+function changeStatus(id,v){let r=rows.find(x=>x.id==id);if(!r)return;r.status=v;if(v==='Готов')r.sort_order=Math.max(0,...rows.map(x=>Number(x.sort_order)||0))+1;patch(id,{status:v,sort_order:r.sort_order});render();renderSummary()}
 async function addOrder(){
   if(busy)return;
   const max=Math.max(0,...rows.map(x=>Number(x.sort_order)||0));
@@ -84,7 +188,10 @@ async function addOrder(){
     toast('Ошибка добавления: '+(e.message||'Supabase'));
   }
 }
-async function del(id){let r=rows.find(x=>x.id==id);if(!r)return;if(!confirm('Удалить «'+(r.product||r.customer||'этот заказ')+'»?'))return;try{await api(TABLE+'?id=eq.'+encodeURIComponent(id),{method:'DELETE'});rows=rows.filter(x=>x.id!=id);render();toast('Заказ удалён')}catch(e){console.error(e);toast('Не удалось удалить заказ')}}
+async function del(id){let r=rows.find(x=>x.id==id);if(!r)return;if(!confirm('Удалить «'+(r.product||r.customer||'этот заказ')+'»?'))return;try{await api(TABLE+'?id=eq.'+encodeURIComponent(id),{method:'DELETE'});rows=rows.filter(x=>x.id!=id);render();renderSummary();toast('Заказ удалён')}catch(e){console.error(e);toast('Не удалось удалить заказ')}}
 function editing(){let e=document.activeElement;return e&&['INPUT','SELECT','TEXTAREA'].includes(e.tagName)}
-setInterval(()=>{if(!editing()&&!busy)load()},5000);load();
+setInterval(()=>{if(!editing()&&!busy)load()},5000);
+/* init */
+document.getElementById('monthPick').value=(()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')})();
+load();
 </script></body></html>
