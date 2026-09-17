@@ -18,7 +18,22 @@ async function patch(id,p){try{await api(TABLE+'?id=eq.'+encodeURIComponent(id),
 function edit(id,k,v){let r=rows.find(x=>x.id==id);if(!r)return;r[k]=v;patch(id,{[k]:v})}
 function num(id,k,v){let n=Number(v)||0;let r=rows.find(x=>x.id==id);if(r)r[k]=n;patch(id,{[k]:n})}
 function changeStatus(id,v){let r=rows.find(x=>x.id==id);if(!r)return;r.status=v;if(v==='Готов')r.sort_order=Math.max(0,...rows.map(x=>Number(x.sort_order)||0))+1;patch(id,{status:v,sort_order:r.sort_order});render()}
-async function addOrder(){let max=Math.max(0,...rows.map(x=>Number(x.sort_order)||0));try{let a=await api(TABLE,{method:'POST',body:JSON.stringify({order_date:today(),order_time:now(),product:'',customer:'',source:'',prepayment:0,payment:0,delivery:0,comment:'',status:'Обработка',sort_order:max+1})});if(!Array.isArray(a)||!a[0]){await load();return}rows.push(a[0]);render();conn(true);toast('Новый заказ добавлен');setTimeout(()=>document.querySelector('tr[data-id="'+a[0].id+'"] .cell')?.focus(),40)}catch(e){console.error(e);conn(false);toast('Не удалось добавить заказ: проверьте подключение к Supabase')}}
+async function addOrder(){
+  if(busy)return;
+  const max=Math.max(0,...rows.map(x=>Number(x.sort_order)||0));
+  const item={order_date:today(),order_time:now(),product:'',customer:'',source:'',prepayment:0,payment:0,delivery:0,comment:'',status:'Обработка',sort_order:max+1};
+  try{
+    await api(TABLE,{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(item)});
+    await load();
+    conn(true);
+    toast('Новый заказ добавлен');
+    setTimeout(()=>document.querySelector('tbody tr:not(.done) .cell')?.focus(),80);
+  }catch(e){
+    console.error('ADD ORDER ERROR:',e);
+    conn(false);
+    toast('Ошибка добавления: '+(e.message||'Supabase'));
+  }
+}
 async function del(id){let r=rows.find(x=>x.id==id);if(!r)return;if(!confirm('Удалить «'+(r.product||r.customer||'этот заказ')+'»?'))return;try{await api(TABLE+'?id=eq.'+encodeURIComponent(id),{method:'DELETE'});rows=rows.filter(x=>x.id!=id);render();toast('Заказ удалён')}catch(e){console.error(e);toast('Не удалось удалить заказ')}}
 function editing(){let e=document.activeElement;return e&&['INPUT','SELECT','TEXTAREA'].includes(e.tagName)}
 setInterval(()=>{if(!editing()&&!busy)load()},5000);load();
